@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <title>HelloReact</title>
+</head>
+<body>
+    <div id='test1'></div>
+    <div id='test2'></div>
+    <div id='test3'></div>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/prop-types@15.6/prop-types.js"></script>
+    <script type="text/babel">
+        class Person extends React.Component {
+            // static表示这个属性并不绑示例，而是属于Person大类的静态属性
+            static propTypes = {
+            name:PropTypes.string.isRequired,
+            age:PropTypes.number.isRequired,
+            sex:PropTypes.string.isRequired,
+            speak:PropTypes.func,
+            } //在propTypes中对属性进行限制
+            
+            //添加默认值
+            static defaultProps = {
+            sex:"男",
+            age:15
+            }
+
+            render (){
+                console.log(this)
+                const {name,age,sex} = this.props
+                return (
+                    <ul>
+                        <li>姓名：{name}</li>
+                        <li>年龄：{age+1}</li>
+                        <li>性别：{sex}</li>
+                    </ul>
+                    ) //可以完成计算
+            }
+            
+        }
+        
+        const p1 = {"name":"Max", "age":15, "sex":"男"}
+        const p2 = {"name":"Lucy", "age":16, "sex":"女"}
+        const p3 = {"name":"John", "age":17,}
+
+        // ...可以展开对象，参考https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
+        ReactDOM.render(<Person {...p1}/>, document.getElementById('test1'))
+        ReactDOM.render(<Person {...p2}/>, document.getElementById('test2'))
+        ReactDOM.render(<Person {...p3}/>, document.getElementById('test3'))
+
+        function speak(){
+            console.log("Hi")
+        }
+
+    </script>
+</body>
+</html>
